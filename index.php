@@ -14,9 +14,7 @@
         <div class="col-6 py-5">
           <h2 class="mb-4">Contact Us</h2>
 
-          <div class="messages" role="alert">
-            <div id="response"></div>
-          </div>
+          <div class="alert alert-success visually-hidden" role="alert" id="response"></div>
 
           <form id="contactForm">
             <div class="row mb-3">
@@ -26,7 +24,7 @@
               </div>
               <div class="col">
                 <label for="email" class="form-label">Email</label>
-                <input type="text" name="email" id="email" class="form-control">
+                <input type="email" name="email" id="email" class="form-control">
               </div>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -50,11 +48,11 @@
             url: 'contact.php',
             data: jQuery('form').serialize(),
             success: function (response) {
-              jQuery("#response").html(response);
+              jQuery("#response").html('Thank you for you message').addClass('alert-success').removeClass('visually-hidden');
               jQuery("form").trigger("reset");
             },
             error: function (response) {
-              jQuery("#response").html(response);
+              jQuery("#response").html(response).addClass('alert-danger').removeClass('visually-hidden');
             }
             
           });
