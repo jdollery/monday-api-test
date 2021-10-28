@@ -19,9 +19,9 @@ $query = 'mutation ($itemName: String!, $columnVals: JSON!) {
 
 $vars = [
   'itemName' => $name, 
-  'columnVals' => json_encode([
-    'status1' => ['label' => 'New'],
-    // 'email'  => $email,
+  'columnVals'  =>  json_encode([
+    'status1'   =>  ['label' => 'New'],
+    'email9'    =>  ['email' => $email, 'text' => $name],
 ])];
 
 $data = @file_get_contents($apiUrl, false, stream_context_create([
@@ -32,8 +32,8 @@ $data = @file_get_contents($apiUrl, false, stream_context_create([
  ]
 ]));
 
-$responseContent = json_decode($data, true);
+$response = json_decode($data, true);
 
-echo json_encode($responseContent);
+echo json_encode($response);
 
 ?>
