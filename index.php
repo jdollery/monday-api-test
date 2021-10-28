@@ -1,46 +1,46 @@
-<?php 
+<form action="add.php" method="post">
+  <input type="text" name="name" id="name">
+  <input type="email" name="email" id="name">
+  <input type="submit" value="submit">
+</form>
 
-// https://community.monday.com/t/basic-php-api-v2-example/709
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script>
+  $(function () {
 
-$token = '[Personal API Token]';
-$tempUrl = "https://api.monday.com/v2/";
+    $('form').on('submit', function (e) {
 
-$query = '  {
-                users{
-                    id 
-                    email
-                    name
-                }
-            }';
-$headers = ['Content-Type: application/json', 'User-Agent: [MYTEAM] GraphQL Client', 'Authorization: ' . $token];
-$data = @file_get_contents($tempUrl, false, stream_context_create([
-    'http' => [
-        'method' => 'POST',
-        'header' => $headers,
-        'content' => json_encode(['query' => $query]),
-    ]
-]));
+      e.preventDefault();
 
-$tempContents = json_decode($data, true);
+      $.ajax({
+        type: 'post',
+        url: 'add.php',
+        data: $('form').serialize(),
+        success: function () {
+          alert('form was submitted');
+        }
+      });
 
-?>
+    });
 
-<!-- https://support.monday.com/hc/en-us/articles/360013465659-API-Quickstart-Tutorial-PHP -->
+  });
+</script>
 
-<?php
-$token = 'YOUR_TOKEN_HERE';
-$apiUrl = 'https://api.monday.com/v2';
-$headers = ['Content-Type: application/json', 'Authorization: ' . $token];
+<script>
 
-$query = 'mutation{ create_item (board_id:YOUR_BOARD_ID, item_name:"WHAT IS UP MY FRIENDS!") { id } }';
-$data = @file_get_contents($apiUrl, false, stream_context_create([
- 'http' => [
- 'method' => 'POST',
- 'header' => $headers,
- 'content' => json_encode(['query' => $query]),
- ]
-]));
-$responseContent = json_decode($data, true);
+let query = '{ boards (ids: 1843020011) { groups (ids: new_group) { items { id name } } } }';
 
-echo json_encode($responseContent);
-?>
+fetch ("https://api.monday.com/v2", {
+  method: 'post',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization' : 'eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjEzMDczOTQzNSwidWlkIjoyNTYwMzkzNywiaWFkIjoiMjAyMS0xMC0yOFQxNToyNTozNi41ODVaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MTAyODg2NDQsInJnbiI6InVzZTEifQ.WFGKX3YYw25ylBZCt555aUbIRtqhRGJQF7DtRO7g4Dk'
+  },
+  body: JSON.stringify({
+    query : query
+  })
+})
+  .then(res => res.json())
+  .then(res => console.log(JSON.stringify(res, null, 2)));
+
+</script>
