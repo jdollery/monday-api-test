@@ -30,12 +30,15 @@
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
 
+          <h5 class="mt-4 mb-4">Board content:</h5>
+          <div id="board"></div>
+
         </div>
       </div>
     </div>
 
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script>
       jQuery(document).ready(function(){
 
@@ -59,30 +62,22 @@
 
         });
 
+        jQuery.ajax({
+          type: "GET",
+          url: "get.php",
+          // dataType: 'JSON',
+          success: function(tempContents){
+            jQuery("#board").html(tempContents);
+          },
+          error: function (response) {
+            jQuery("#board").html(tempContents);
+          }
+
+        });
+
+        
+
       });
-    </script>
-
-    <script>
-
-    let query = '{boards(limit:1) { name id description items { name column_values { title id type text } } } }'; // get everything
-
-    // let query = '{ boards (ids: 1843020011) { groups { id title } } }'; //get groups
-
-    // let query = '{ boards (ids: 1843020011) { groups (ids: new_group) { items { id name status } } } }'; //get items in group
-
-    fetch ("https://api.monday.com/v2", {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization' : 'eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjEzMDczOTQzNSwidWlkIjoyNTYwMzkzNywiaWFkIjoiMjAyMS0xMC0yOFQxNToyNTozNi41ODVaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MTAyODg2NDQsInJnbiI6InVzZTEifQ.WFGKX3YYw25ylBZCt555aUbIRtqhRGJQF7DtRO7g4Dk'
-      },
-      body: JSON.stringify({
-        query : query
-      })
-    })
-      .then(res => res.json())
-      .then(res => console.log(JSON.stringify(res, null, 2)));
-
     </script>
 
   </body>
