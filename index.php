@@ -28,7 +28,11 @@
 
 <script>
 
-let query = '{ boards (ids: 1843020011) { groups (ids: new_group) { items { id name } } } }';
+let query = '{boards(limit:1) { name id description items { name column_values { title id type text } } } }'; // get everything
+
+// let query = '{ boards (ids: 1843020011) { groups { id title } } }'; //get groups
+
+// let query = '{ boards (ids: 1843020011) { groups (ids: new_group) { items { id name status } } } }'; //get items in group
 
 fetch ("https://api.monday.com/v2", {
   method: 'post',

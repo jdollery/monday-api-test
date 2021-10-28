@@ -13,14 +13,14 @@ $token = $key;
 $apiUrl = 'https://api.monday.com/v2';
 $headers = ['Content-Type: application/json', 'Authorization: ' . $token];
 
-$query = 'mutation ($myItemName: String!, $columnVals: JSON!) { 
-  create_item (board_id:1843020011, group_id:new_group, item_name:$myItemName, column_values:$columnVals) { id } 
+$query = 'mutation ($itemName: String!, $columnVals: JSON!) { 
+  create_item (board_id:1843020011, group_id:new_group, item_name:$itemName, column_values:$columnVals) { id } 
 }';
 
 $vars = [
-  'myItemName' => $name, 
+  'itemName' => $name, 
   'columnVals' => json_encode([
-    'status' => ['label' => 'New'],
+    'status1' => ['label' => 'New'],
     // 'email'  => $email,
 ])];
 
