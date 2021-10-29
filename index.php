@@ -31,7 +31,7 @@
           </form>
 
           <h5 class="mt-4 mb-4">Board content:</h5>
-          <div id="board"></div>
+          <pre style="white-space: break-spaces;" id="board"></pre>
 
         </div>
       </div>
