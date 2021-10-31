@@ -1,10 +1,18 @@
 // let query = '{ boards (limit:10) { name id description items { name column_values { title id type text } } } }'; // get everything
 
-let query = '{ boards { name id board_folder_id } }'; // get boards
+// let query = '{ boards { name id board_folder_id } }'; // get boards
 
 // let query = '{ boards (ids: 1843020011) { groups { id title } } }'; //get groups
 
 // let query = '{ boards (ids: 1843020011) { groups (ids: new_group) { items { id name status } } } }'; //get items in group
+
+// let query = '{ boards (ids: 263429360) { groups { id title } } }'; //get small groups
+
+// let query = '{ boards (ids: 263429360) { groups (ids: new_group) { items { id name } } } }'; //get small in-progress
+
+// let query = '{ boards (ids: 343787892) { groups { id title } } }'; //get large groups
+
+let query = '{ boards (ids: 343787892) { groups (ids: q2) { items { id name } } } }'; //get large q2 (Waiting list)
 
 fetch ("https://api.monday.com/v2", {
   method: 'post',
