@@ -13,7 +13,8 @@ $token = $key;
 $apiUrl = 'https://api.monday.com/v2';
 $headers = ['Content-Type: application/json', 'Authorization: ' . $token];
 
-$query = '{boards(limit:1) { name id description items { name column_values { title id type } } } }';
+$query = '{ boards( limit:1 ) { groups ( ids: new_group ) { items { id name column_values { title id type text } } } } }';
+// $query = '{boards(limit:1) { name id description items { name column_values { title id type } } } }';
 
 $data = @file_get_contents($apiUrl, false, stream_context_create([
  'http' => [

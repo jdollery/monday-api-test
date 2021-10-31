@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monday Test Contact Form</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  
+    <style>
+
+      pre {
+        white-space: break-spaces;
+      }
+
+    </style>
+  
   </head>
   <body>
 
@@ -30,8 +39,8 @@
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
 
-          <h5 class="mt-4 mb-4">Board content:</h5>
-          <pre style="white-space: break-spaces;" id="board"></pre>
+          <h5 class="mt-5 mb-4">Board content:</h5>
+          <pre class="border border-1 p-4 rounded" id="board"></pre>
 
         </div>
       </div>
@@ -79,6 +88,8 @@
 
       });
     </script>
+
+    <script src="/js/script.js"></script>
 
   </body>
 </html>
