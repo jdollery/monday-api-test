@@ -39,7 +39,7 @@
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
 
-          <h5 class="mt-5 mb-4">Board content:</h5>
+          <h5 class="mt-5 mb-4">Board data:</h5>
           <pre class="border border-1 p-4 rounded" id="board"></pre>
 
         </div>
