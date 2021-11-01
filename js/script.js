@@ -12,7 +12,9 @@
 
 // let query = '{ boards (ids: 343787892) { groups { id title } } }'; //get large groups
 
-let query = '{ boards (ids: 343787892) { groups (ids: q2) { items { id name } } } }'; //get large q2 (Waiting list)
+// let query = '{ boards (ids: 343787892) { groups (ids: q2) { items { id name } } } }'; //get large q2 (Waiting list)
+
+let query = '{ boards (ids: 1760305728) { groups (ids: topics) { items { id name column_values { title id type text } } } } }'; //get Synergy
 
 fetch ("https://api.monday.com/v2", {
   method: 'post',

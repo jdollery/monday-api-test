@@ -39,8 +39,33 @@
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
 
-          <h5 class="mt-5 mb-4">Board data:</h5>
-          <pre class="border border-1 p-4 rounded" id="board"></pre>
+          <!-- <h5 class="mt-5 mb-4">Board data:</h5>
+          <pre class="border border-1 p-4 rounded" id="board"></pre> -->
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-6 py-5">
+          <h2 class="mb-4">Synergy Form</h2>
+
+          <div class="alert alert-success visually-hidden" role="alert" id="response2"></div>
+
+          <form id="synergyForm">
+            <div class="row mb-3">
+              <div class="col">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" name="name" id="name" class="form-control">
+              </div>
+              <!-- <div class="col">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" id="email" class="form-control">
+              </div> -->
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
 
         </div>
       </div>
@@ -71,6 +96,26 @@
 
         });
 
+        jQuery('#synergyForm').on('submit', function (e) {
+
+          e.preventDefault();
+
+          jQuery.ajax({
+            type: 'post',
+            url: 'push.php',
+            data: jQuery('form').serialize(),
+            success: function (response) {
+              jQuery("#response2").html(response).addClass('alert-success').removeClass('visually-hidden');
+              jQuery("form").trigger("reset");
+            },
+            error: function (response) {
+              jQuery("#response2").html(response).addClass('alert-danger').removeClass('visually-hidden');
+            }
+            
+          });
+
+        });
+
         jQuery.ajax({
           type: "GET",
           url: "get.php",
@@ -89,6 +134,7 @@
       });
     </script>
 
+    <script src="/js/script.js"></script>
 
   </body>
 </html>

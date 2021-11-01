@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 }
 
-$token = $key;
+$token = $key1;
 $apiUrl = 'https://api.monday.com/v2';
 $headers = ['Content-Type: application/json', 'Authorization: ' . $token];
 
