@@ -28,17 +28,27 @@
 
           <form id="apiForm">
             <div class="row mb-3">
-              <div class="col">
+              <div class="col-6">
                 <label for="name" class="form-label">Name</label>
                 <input type="text" name="name" id="name" class="form-control">
               </div>
-              <div class="col">
-                <label for="treatment" class="form-label">Status</label>
-                <select class="form-select" name="treatment" id="treatment">
+              <div class="col-6">
+                <label for="status" class="form-label">Status</label>
+                <select class="form-select" name="status" id="status">
                   <option selected disabled >Select a status</option>
                   <option value="1">Done</option>
                   <option value="2">Stuck</option>
                   <option value="0">Working on it</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-6">
+                <label for="treatment" class="form-label">Treatment</label>
+                <select class="form-select" name="treatment" id="treatment">
+                  <option selected disabled >Select a treatment</option>
+                  <option value="hygiene">Hygiene</option>
+                  <option value="whitening">Whitening</option>
                 </select>
               </div>
               <!-- <div class="col">
