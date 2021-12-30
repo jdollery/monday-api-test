@@ -22,6 +22,7 @@
       <div class="row justify-content-center">
         <div class="col-6 py-5">
           <h2 class="mb-4">API Test Form</h2>
+          <p>Date and time now: <?php echo date("Y-m-d H:i:s") ?></p>
 
           <div class="alert alert-success visually-hidden" role="alert" id="message"></div>
 
@@ -52,7 +53,6 @@
 
         <h5 class="mt-5 mb-4">Board data:</h5>
         <pre class="border border-1 p-4 rounded" id="board"></pre>
-        <p><?php echo date("Y-m-d H:i:s") ?></p>
 
       </div>
     </div>
