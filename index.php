@@ -33,6 +33,12 @@
                 <input type="text" name="name" id="name" class="form-control">
               </div>
               <div class="col-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" id="email" class="form-control">
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-6">
                 <label for="status" class="form-label">Status</label>
                 <select class="form-select" name="status" id="status">
                   <option selected disabled >Select a status</option>
@@ -41,20 +47,20 @@
                   <option value="0">Working on it</option>
                 </select>
               </div>
-            </div>
-            <div class="row mb-3">
               <div class="col-6">
                 <label for="treatment" class="form-label">Treatment</label>
                 <select class="form-select" name="treatment" id="treatment">
                   <option selected disabled >Select a treatment</option>
-                  <option value="hygiene">Hygiene</option>
-                  <option value="whitening">Whitening</option>
+                  <option value="Hygiene">Hygiene</option>
+                  <option value="Whitening">Whitening</option>
                 </select>
               </div>
-              <!-- <div class="col">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" name="email" id="email" class="form-control">
-              </div> -->
+            </div>
+            <div class="row mb-3">
+              <div class="col-12">
+                <label for="update" class="form-label">Update</label>
+                <textarea class="form-control" id="update" rows="3"></textarea>
+              </div>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
