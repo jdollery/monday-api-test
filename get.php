@@ -1,20 +1,31 @@
-<?php 
+<?php
+
+/*-----------------------------------------------------------------------------------*/
+/* EXAMPLE API CALLS */
+/*-----------------------------------------------------------------------------------*/
+
+// { boards (limit:10) { name id description items { name column_values { title id type text } } } }'; // get everything
+
+// { boards { name id board_folder_id } }'; // get all boards
+
+// { boards (ids: XXXXXXXXXX) { groups { id title } } }'; //get groups in board (using board id)
+
+// { boards (ids: XXXXXXXXXX) { groups (ids: XXXXXXXXXX) { items { id name status } } } }'; //get items in group (using board and group ids)
+
+// { boards (ids: XXXXXXXXXX) { groups (ids: XXXXXXXXXX) { items { id name column_values { id title } } } } }'; //get all entries of group and each columns id and title (using board and group ids) 
+
+
+/*-----------------------------------------------------------------------------------*/
+/* GET API JSON FUNCTION */
+/*-----------------------------------------------------------------------------------*/
 
 require_once(realpath(dirname(__FILE__) . "/_config.php"));
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-  $name = $_POST['name'];
-  $email = $_POST['email'];
-
-}
 
 $token = $key1;
 $apiUrl = 'https://api.monday.com/v2';
 $headers = ['Content-Type: application/json', 'Authorization: ' . $token];
 
-$query = '{ boards( limit:1 ) { groups ( ids: new_group ) { items { id name column_values { title id type text } } } } }';
-// $query = '{boards(limit:1) { name id description items { name column_values { title id type } } } }';
+$query = '{ boards (ids: 2087111809) { groups (ids: topics) { items { id name column_values { id title } } } } }';
 
 $data = @file_get_contents($apiUrl, false, stream_context_create([
  'http' => [
@@ -24,8 +35,8 @@ $data = @file_get_contents($apiUrl, false, stream_context_create([
  ]
 ]));
 
-$tempContents = json_decode($data, true);
+//get response from call
 
-echo json_encode($tempContents);
+$response  = json_decode($data, true);
 
-?>
+echo json_encode($response); 
