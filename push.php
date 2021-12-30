@@ -4,12 +4,16 @@ require_once(realpath(dirname(__FILE__) . "/_config.php"));
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-  $name = $_POST['name'];
-  $email = $_POST['email'];
-  $status = $_POST['status'];
-  $treatment = $_POST['treatment'];
+  // $name = $_POST['name'];
+  $name = strip_tags($_POST['name']);
+  // $email = $_POST['email'];
+  $email = strip_tags($_POST['email']);
+  // $status = $_POST['status'];
+  $status = strip_tags($_POST['status']);
+  // $treatment = $_POST['treatment'];
+  $treatment = strip_tags($_POST['treatment']);
   // $date = date("Y-m-d H:i:s"); // e.g 2021-12-30 17:49:37
-  $date = date("Y-m-d"); // e.g 2021-12-30 17:49:37
+  $date = date("Y-m-d"); // e.g 2021-12-30 Monday will convert this to Dec 30
 
 }
 

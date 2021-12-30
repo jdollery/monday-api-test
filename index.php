@@ -30,18 +30,18 @@
             <div class="row mb-3">
               <div class="col-6">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" name="name" id="name" class="form-control">
+                <input type="text" name="name" id="name" class="form-control" required >
               </div>
               <div class="col-6">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" name="email" id="email" class="form-control">
+                <input type="email" name="email" id="email" class="form-control" required >
               </div>
             </div>
             <div class="row mb-3">
               <div class="col-6">
                 <label for="status" class="form-label">Status</label>
                 <select class="form-select" name="status" id="status">
-                  <option selected disabled >Select a status</option>
+                  <option selected disabled required >Select a status</option>
                   <option value="1">Done</option>
                   <option value="2">Stuck</option>
                   <option value="0">Working on it</option>
@@ -49,7 +49,7 @@
               </div>
               <div class="col-6">
                 <label for="treatment" class="form-label">Treatment</label>
-                <select class="form-select" name="treatment" id="treatment">
+                <select class="form-select" name="treatment" id="treatment" required >
                   <option selected disabled >Select a treatment</option>
                   <option value="Hygiene">Hygiene</option>
                   <option value="Whitening">Whitening</option>
