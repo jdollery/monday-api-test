@@ -67,8 +67,8 @@
 
         </div>
 
-        <h5 class="mt-5 mb-4">Board data:</h5>
-        <pre class="border border-1 p-4 rounded" id="board"></pre>
+        <!-- <h5 class="mt-5 mb-4">Board data:</h5>
+        <pre class="border border-1 p-4 rounded" id="board"></pre> -->
 
       </div>
     </div>
@@ -103,15 +103,16 @@
           url: "get.php",
           // dataType: 'JSON',
           success: function(response){
-            jQuery("#board").html(response);
+            // jQuery("#board").html(response);
+            console.log(response);
           },
           error: function (response) {
-            jQuery("#board").html(response);
+            // jQuery("#board").html(response);
+            console.error(response);
           }
 
         });
-
-
+        
       });
     </script>
 
