@@ -25,11 +25,11 @@ $headers = ['Content-Type: application/json', 'Authorization: ' . $token];
 //   create_item (board_id:2087111809, group_id:topics, item_name:$name, column_values:$columns) { id } 
 // }';
 
-$createQuery = 'mutation ($name: String!, $columns: JSON!) { 
+$query = 'mutation ($name: String!, $columns: JSON!) { 
   create_item (board_id:2087111809, group_id:topics, item_name:$name, column_values:$columns) { id } 
 }';
 
-$createVars = [
+$vars = [
   'name' => $name, 
   'columns'   =>  json_encode([
     'email'  =>  ['email' => $email, 'text' => $name],
@@ -43,7 +43,7 @@ $data = @file_get_contents($apiUrl, false, stream_context_create([
  'http' => [
   'method' => 'POST',
   'header' => $headers,
-  'content' => json_encode(['query' => $createQuery, 'variables' => $createVars]),
+  'content' => json_encode(['query' => $query, 'variables' => $vars]),
  ]
 ]));
 
@@ -53,45 +53,56 @@ $response = json_decode($data, true);
 $item_id = $response['data']['create_item']['id']; //get the id of the just created item
 
 // echo json_encode($response); 
-// echo json_encode($item_id);
+echo json_encode($item_id);
+
 
 /* ------ Adding Files ------ */
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+  // if( isset($_FILES['upload']) ){
+  //   $file_name = $_FILES['upload']['name'];
+  //   $file_size = $_FILES['upload']['size'];
+  //   $file_tmp = $_FILES['upload']['tmp_name'];
+  //   $file_type = $_FILES['upload']['type'];
+  //   $file_upload = strtolower(end(explode('.', $_FILES['upload']['name'])));
+  // }
+
+  $file_upload = isset($_FILES['upload']);
+
+}
+
+// https://community.monday.com/t/accessing-and-upload-files-using-the-graphql-api/5997/7
+
+$boundary = 'bsdkvbl23fdvf'; //need to work out boundary randomiser
 $eol = '\r\n';
 
-// $header = array(
-//   'User-Agent' => MONDAY_TEAM . ’ GraphQL Client’,
-//   'Authorization' => get_field('mondaykey', 'user_' . get_current_user_id()),
-//   'Content-Type' => 'multipart/form-data; boundary=' . $boundary
-// );
-
 $token = $key1;
-$apiUrl = 'https://api.monday.com/v2';
+$apiUrl = 'https://api.monday.com/v2/file';
 $headers = ['Content-Type: multipart/form-data; boundary=' . $boundary, 'Authorization: ' . $token];
+
+$query = 'mutation ($file: File!) { 
+  add_file_to_column (board_id:2087111809, group_id:topics, item_id:' . $item_id . ', column_id: files, file: $file ) { id }
+}' . $eol;
 
 //We need to build the body from scratch because it is multipart with boundaries
 //Take care of the extra empty lines (twice $eol) before the actual query and file, otherwise an error 500 is returned
 
-$query = '–' . $boundary . $eol;
-$query .= 'Content-Disposition: form-data; name="query"' . $eol . $eol;
-$query .= 'mutation ($file: File!) {add_file_to_column (board_id:2087111809, group_id:topics, item_id: ' . $item_id . ', column_id: files, file: $file ) { id } }' . $eol;
+$body = '–' . $boundary . $eol;
+$body .= 'Content-Disposition: form-data; name="'. $query .'"' . $eol . $eol;
+$body .= '–' . $boundary . $eol;
+$body .= 'Content-Disposition: form-data; name="variables[file]"; filename="' . $file_upload['name'] . '"' . $eol; //Trying to access array offset on value of type bool
+$body .= 'Content-Type: ' . $file_upload['type'] . $eol . $eol; //Trying to access array offset on value of type bool
+$body .= file_get_contents($file_upload['value']); //Trying to access array offset on value of type bool
+$body .= $eol . '–' . $boundary . '–';
 
-$query .= '–' . $boundary . $eol;
-$query .= 'Content-Disposition: form-data; name="variables[file]"; filename="' . $upload['name'] . '"' . $eol;
-$query .= 'Content-Type: ' . $upload['type'] . $eol . $eol;
-$query .= file_get_contents($upload['value']);
-$query .= $eol . '–' . $boundary . '–';
-
-$data = @file_get_contents($apiUrl, false, stream_context_create([
+$data = @file_get_contents($apiUrl, false, stream_context_create([ //file_get_contents(): Filename cannot be empty in
   'http' => [
    'method' => 'POST',
    'header' => $headers,
-   'content' => json_encode(['query' => $query]),
+   'content' => json_encode(['body' => $body]),
   ]
 ]));
 
 $response = json_decode($data, true);
 echo json_encode($response);
-
-// $response = wp_remote_post( MONDAY_URL . ‘file/’, [‘headers’ => $header, ‘body’ => $body] );
