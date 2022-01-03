@@ -58,9 +58,13 @@
             </div>
             <div class="row mb-3">
               <div class="col-12">
+                <label for="upload" class="form-label">Upload</label>
+                <input type="file" id="upload" name="upload" class="form-control">
+              </div>
+              <!-- <div class="col-12">
                 <label for="update" class="form-label">Update</label>
                 <textarea class="form-control" id="update" rows="3"></textarea>
-              </div>
+              </div> -->
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
@@ -87,11 +91,13 @@
             url: 'push.php',
             data: jQuery('form').serialize(),
             success: function (response) {
-              jQuery("#message").html(response).addClass('alert-success').removeClass('visually-hidden');
+              console.log("ID:", response);
+              jQuery("#message").html("Thank you for your enquiry.").addClass('alert-success').removeClass('visually-hidden');
               jQuery("form").trigger("reset");
             },
             error: function (response) {
-              jQuery("#message").html(response).addClass('alert-danger').removeClass('visually-hidden');
+              console.error("Error:", response);
+              jQuery("#message").html("Sorry, there was an issue. Please try again.").addClass('alert-danger').removeClass('visually-hidden');
             }
             
           });
@@ -105,6 +111,7 @@
           success: function(response){
             // jQuery("#board").html(response);
             console.log(response);
+            // console.log(JSON.stringify(response, null, '\t'))
           },
           error: function (response) {
             // jQuery("#board").html(response);
