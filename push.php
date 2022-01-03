@@ -2,6 +2,11 @@
 
 require_once(realpath(dirname(__FILE__) . "/_config.php"));
 
+
+/*-----------------------------------------------------------------------------------*/
+/* CREATE ITEM */
+/*-----------------------------------------------------------------------------------*/
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   // $name = $_POST['name'];
@@ -56,19 +61,22 @@ $item_id = $response['data']['create_item']['id']; //get the id of the just crea
 echo json_encode($item_id);
 
 
-/* ------ Adding Files ------ */
+/*-----------------------------------------------------------------------------------*/
+/* ADD FILES TO CREATED ITEM */
+/*-----------------------------------------------------------------------------------*/
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-  // if( isset($_FILES['upload']) ){
-  //   $file_name = $_FILES['upload']['name'];
-  //   $file_size = $_FILES['upload']['size'];
-  //   $file_tmp = $_FILES['upload']['tmp_name'];
-  //   $file_type = $_FILES['upload']['type'];
-  //   $file_upload = strtolower(end(explode('.', $_FILES['upload']['name'])));
-  // }
+  if (isset($_FILES["upload"]) && $_FILES["upload"]["error"] == 0) { 
 
-  $file_upload = isset($_FILES['upload']);
+    $file_name     = $_FILES["upload"]["name"];
+    $file_type     = $_FILES["upload"]["type"];
+    $file_size     = $_FILES["upload"]["size"];
+    $file_value     = $_FILES["upload"]["value"];
+    $file_tmp_name = $_FILES["upload"]["tmp_name"];
+    $file_error    = $_FILES["upload"]["error"];
+
+  }
 
 }
 
@@ -85,15 +93,12 @@ $query = 'mutation ($file: File!) {
   add_file_to_column (board_id:2087111809, group_id:topics, item_id:' . $item_id . ', column_id: files, file: $file ) { id }
 }' . $eol;
 
-//We need to build the body from scratch because it is multipart with boundaries
-//Take care of the extra empty lines (twice $eol) before the actual query and file, otherwise an error 500 is returned
-
 $body = '–' . $boundary . $eol;
 $body .= 'Content-Disposition: form-data; name="'. $query .'"' . $eol . $eol;
 $body .= '–' . $boundary . $eol;
-$body .= 'Content-Disposition: form-data; name="variables[file]"; filename="' . $file_upload['name'] . '"' . $eol; //Trying to access array offset on value of type bool
-$body .= 'Content-Type: ' . $file_upload['type'] . $eol . $eol; //Trying to access array offset on value of type bool
-$body .= file_get_contents($file_upload['value']); //Trying to access array offset on value of type bool
+$body .= 'Content-Disposition: form-data; name="variables[file]"; filename="' . $file_name . '"' . $eol; //Undefined variable: file_name
+$body .= 'Content-Type: ' . $file_type . $eol . $eol; //Undefined variable: file_type
+$body .= file_get_contents($file_value); //Undefined variable: file_value
 $body .= $eol . '–' . $boundary . '–';
 
 $data = @file_get_contents($apiUrl, false, stream_context_create([ //file_get_contents(): Filename cannot be empty in
