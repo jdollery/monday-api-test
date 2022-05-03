@@ -26,7 +26,7 @@
 
           <div class="alert alert-success visually-hidden" role="alert" id="message"></div>
 
-          <form id="apiForm">
+          <form id="apiForm" method="post" enctype="multipart/form-data" action='push.php'>
             <div class="row mb-3">
               <div class="col-6">
                 <label for="name" class="form-label">Name</label>
@@ -86,10 +86,17 @@
 
           e.preventDefault();
 
+          // var formData = new FormData(this);
+          var form_data = jQuery(this).serializeArray(),
+          form_url = '/' + jQuery(this)[0].action.split('/').pop();
+
           jQuery.ajax({
             type: 'post',
-            url: 'push.php',
-            data: jQuery('form').serialize(),
+            // url: 'push.php',
+            url: form_url,
+            // data: jQuery('form').serialize(),
+            data: form_data,
+            encode: true,
             success: function (response) {
               console.log("ID:", response);
               jQuery("#message").html("Thank you for your enquiry.").addClass('alert-success').removeClass('visually-hidden');

@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $file_name     = $_FILES["upload"]["name"];
     $file_type     = $_FILES["upload"]["type"];
     $file_size     = $_FILES["upload"]["size"];
-    $file_value     = $_FILES["upload"]["value"];
+    $file_value    = $_FILES["upload"]["value"];
     $file_tmp_name = $_FILES["upload"]["tmp_name"];
     $file_error    = $_FILES["upload"]["error"];
 
@@ -102,11 +102,11 @@ $body .= file_get_contents($file_value); //Undefined variable: file_value
 $body .= $eol . '–' . $boundary . '–';
 
 $data = @file_get_contents($apiUrl, false, stream_context_create([ //file_get_contents(): Filename cannot be empty in
-  'http' => [
-   'method' => 'POST',
-   'header' => $headers,
-   'content' => json_encode(['body' => $body]),
-  ]
+'http' => [
+  'method' => 'POST',
+  'header' => $headers,
+  'content' => json_encode(['body' => $body]),
+]
 ]));
 
 $response = json_decode($data, true);
