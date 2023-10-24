@@ -1,1 +1,1 @@
-# Monday API - Get & Pull testing
+# Monday API - Get & Push testing with PHP and Ajax
